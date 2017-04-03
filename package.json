@@ -1,0 +1,19 @@
+{
+  "name": "tweet-regenerator",
+  "version": "1.0.0",
+  "description": "Team: `#fuzzy-spider` Team member: [Serafin Wesnidge, @lumodon](https://github.com/lumodon) JSDev link: [Tweet-reGenerator with Node.js](http://jsdev.learnersguild.org/goals/111-Tweet-reGenerator_with_Node.html)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumodon/tweet-regenerator.git"
+  },
+  "author": "Serafin Wesnidge, @lumodon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lumodon/tweet-regenerator/issues"
+  },
+  "homepage": "https://github.com/lumodon/tweet-regenerator#readme"
+}
