@@ -1,4 +1,5 @@
 # Team information
+
 Team: `#fuzzy-spider`  
 Team member: [Serafin Wesnidge, @lumodon](https://github.com/lumodon)  
 JSDev link: [Tweet-reGenerator with Node.js](http://jsdev.learnersguild.org/goals/111-Tweet-reGenerator_with_Node.html)  
