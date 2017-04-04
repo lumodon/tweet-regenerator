@@ -1,8 +1,7 @@
 function encryptionHandling() {
   const crypto = require('crypto')
   const fs = require('fs')
-  const KEY_FILE = './mysql.keyfile'
-  const CRYPT_PASSWORD_FILE = './config.cfg'
+  const {KEY_FILE, CRYPT_PASSWORD_FILE} = require('./config.js')
   let HARDCODED_PASSWORD
   
   const getEncryptPassword = new Promise((resolve, reject) => {
