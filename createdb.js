@@ -1,33 +1,27 @@
 function encryptionHandling() {
   const crypto = require('crypto')
   const fs = require('fs')
-  const CONFIG_FILE = './mysql.keyfile'
+  const KEY_FILE = './mysql.keyfile'
+  const CRYPT_PASSWORD_FILE = './config.cfg'
   let HARDCODED_PASSWORD
   
-  // Promise chain is breaking. When the encryptFilekey throws its
-  // error of not finding file, HARDCODED_PASSWORD never gets set
-  // EVEN when we change the order in the Promise.all operation
-
-  // Going to rewrite with resolve only, and use if statements in
-  // first '.then' to handle it.
   const getEncryptPassword = new Promise((resolve, reject) => {
-    fs.readFile('./config.cfg', 'utf-8', (err, data) => {
+    fs.readFile(CRYPT_PASSWORD_FILE, 'utf-8', (err, data) => {
       if(err) {
         reject(err)
       } else {
-        HARDCODED_PASSWORD = data
+        HARDCODED_PASSWORD = data.match(/\=(.*)/)[1]
         resolve()
       }
     })
   })
   
   const encryptFilekey = new Promise((resolve, reject) => {
-    fs.readFile(CONFIG_FILE, 'utf-8', (err, data) => {
+    fs.readFile(KEY_FILE, 'utf-8', (err, data) => {
       if(err) {
-        reject(err)
+        resolve({'err':err})
       } else {
-        console.log('DATA:', data, 'err:',err)
-        resolve(data.match(/\=(.*)/)[1]) // Capturing group as alternative to negative lookbehind, which javascript doesnt support
+        resolve(data) // Capturing group as alternative to negative lookbehind, which javascript doesnt support
       }
     })
   })
@@ -37,21 +31,23 @@ function encryptionHandling() {
     encryptFilekey
   ])
   .then(data => {
-    console.log('success reading keyfile data', data)
+    if(data[1].hasOwnProperty('err')) {
+      throw data[1].err
+    } else {
+      console.log('success reading keyfile data')
+    }
     return decrypt(data[1])
   })
   .catch(err =>
     new Promise((resolve, reject) => {
-      console.log(err)
       console.log('couldn\'t find key file, creating key')
       crypto.randomBytes(16, (err, buffer) => {
         if(err) {
           reject(err)
         }
         let key = buffer.toString('hex')
-        console.log('============>',HARDCODED_PASSWORD)
 
-        fs.writeFile(CONFIG_FILE, encrypt(key), err => {
+        fs.writeFile(KEY_FILE, encrypt(key), err => {
           if(err) {
             reject(err)
           } else {
@@ -99,8 +95,8 @@ function createDatabase() {
       }
       if(stderr) {
         console.log(`
-          stderr: ${stderr}\n
-          You already have a mysql database. Do you still know your password?\n
+          stderr: ${stderr}
+          You already have a mysql database. Do you still know your password?
           type 'npm run encrypt -- {your password here}`)
       } else {
         console.log(`
