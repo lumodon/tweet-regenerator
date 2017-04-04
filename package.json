@@ -4,7 +4,9 @@
   "description": "Team: `#fuzzy-spider` Team member: [Serafin Wesnidge, @lumodon](https://github.com/lumodon) JSDev link: [Tweet-reGenerator with Node.js](http://jsdev.learnersguild.org/goals/111-Tweet-reGenerator_with_Node.html)",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js",
+    "createdb": "node createdb.js",
+    "encrypt": "node encryptPassword.js"
   },
   "repository": {
     "type": "git",
