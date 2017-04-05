@@ -1,0 +1,28 @@
+const mysql = require('mysql')
+
+let connection = mysql.createConnection({
+  host              : 'localhost',
+  user              : 'root',
+  database          : 'tweet_db',
+  multipleStatements: true
+})
+
+connection.connect(err => {
+  if(err) {
+    console.error(err)
+    return err
+  }
+  let query = `DROP TABLE IF EXISTS tweets;
+    CREATE TABLE tweets (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    tweet VARCHAR(144),
+    owner VARCHAR(20),
+    PRIMARY KEY (id)
+    ) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;`
+  connection.query(query, function (err, rows, fields) {
+    if(err) {
+      console.error(err)
+    }
+  })
+  connection.end()
+})
