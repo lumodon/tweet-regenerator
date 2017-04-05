@@ -8,7 +8,7 @@ JSDev link: [Tweet-reGenerator with Node.js](http://jsdev.learnersguild.org/goal
 
 1. open terminal, navigate to a folder you store projects in.
 2. type `git clone https://github.com/lumodon/tweet-regenerator.git`
-3. install mysql with `brew install mysql` (if you do not have brew installed, click here and follow brew installation instructions)[https://brew.sh/]
+3. install mysql with `brew install mysql` [if you do not have brew installed, click here and follow brew installation instructions](https://brew.sh/)
 4. type `cd tweet-regenerator`
 5. type `npm install`
 6. type `npm run createdb`, if you get an errror, follow the error's instructions instead of moving to the next step.
