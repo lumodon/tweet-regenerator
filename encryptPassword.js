@@ -3,7 +3,7 @@ const fs = require('fs')
 const github = 'https://github.com/lumodon/tweet-regenerator.git'
 
 const password = process.argv[2]
-const {KEY_FILE, CRYPT_PASSWORD_FILE} = require('../config.js')
+const {KEY_FILE, CRYPT_PASSWORD_FILE} = require('./config.js')
 
 console.log(`your password is: ${password}`)
 

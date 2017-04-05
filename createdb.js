@@ -85,6 +85,7 @@ function encryptionHandling() {
 
 function createDatabase() {
   const cp = require('child_process')
+  const migrate = require('./db/migrate')
 
   encryptionHandling()
   .then(password => {
@@ -104,6 +105,10 @@ function createDatabase() {
           You may now run 'npm start'
         `)
       }
+      migrate()
+      .then( result => {
+        console.log('Migration complete, tables & schema setup.\n', result)
+      })
     })
   })
   .catch(err => {
