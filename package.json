@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "createdb": "node createdb.js",
-    "encrypt": "node encryptPassword.js",
-    "migrate": "node migrate.js"
+    "createdb": "node db/createdb.js",
+    "encrypt": "node db/encryptPassword.js",
+    "migrate": "node db/migrate.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/lumodon/tweet-regenerator#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "express-session": "^1.15.2",
     "mysql": "^2.13.0",
+    "oauth": "^0.9.15",
     "pug": "^2.0.0-beta11"
   }
 }

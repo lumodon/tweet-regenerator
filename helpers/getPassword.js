@@ -1,9 +1,9 @@
 const crypto = require('crypto')
 const fs = require('fs')
-const {KEY_FILE, CRYPT_PASSWORD_FILE} = require('../config.js')
+const {KEY_FILE, CRYPT_PASSWORD_FILE} = require('../db/config')
 
 
-module.exports = function getPassword(callback) {
+module.exports = callback => {
   let HARDCODED_PASSWORD
   const getEncryptPassword = new Promise((resolve, reject) => {
     fs.readFile(CRYPT_PASSWORD_FILE, 'utf-8', (err, data) => {
