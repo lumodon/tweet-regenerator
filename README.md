@@ -4,6 +4,21 @@ Team: `#fuzzy-spider`
 Team member: [Serafin Wesnidge, @lumodon](https://github.com/lumodon)  
 JSDev link: [Tweet-reGenerator with Node.js](http://jsdev.learnersguild.org/goals/111-Tweet-reGenerator_with_Node.html)  
 
+# Installation and setup
+
+1. open terminal, navigate to a folder you store projects in.
+2. type `git clone https://github.com/lumodon/tweet-regenerator.git`
+3. install mysql with `brew install mysql` (if you do not have brew installed, click here and follow brew installation instructions)[https://brew.sh/]
+4. type `cd tweet-regenerator`
+5. type `npm install`
+6. type `npm run createdb`, if you get an errror, follow the error's instructions instead of moving to the next step.
+7. if you did not receive any errors, type `npm run migrate`
+8. type `npm start`
+9. using chrome browser, navigate to `localhost:3000`
+
+the interface should be self-explanatory from there.
+Have fun!
+
 # tweet-regenerator
 
 ---

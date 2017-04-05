@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "createdb": "node createdb.js",
-    "encrypt": "node encryptPassword.js"
+    "encrypt": "node encryptPassword.js",
+    "migrate": "node migrate.js"
   },
   "repository": {
     "type": "git",
