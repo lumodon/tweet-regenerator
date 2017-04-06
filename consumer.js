@@ -1,6 +1,5 @@
 const oauth = require('oauth')
-let twitterConsumerKey = '9N6DSypJWQG45z0BhC1cOjWT9'
-let twitterConsumerSecret = 'h7sXMkoRxRZw8xVlfxAxXNVDKq8recv90LxSzd1URUUwmHjlk8'
+const {twitterConsumerKey, twitterConsumerSecret} = require('./consumerKeys.js')
 
 module.exports = new oauth.OAuth(
   'http://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',

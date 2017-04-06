@@ -53,7 +53,7 @@ router.get('/callback', (request, response) => {
         request.session.oauthAccessToken = oauthAccessToken
         request.session.oauthAccessTokenSecret = oauthAccessTokenSecret
         
-        response.redirect('/twitter');
+        response.redirect('/twitter/page');
       }
     })
   })
