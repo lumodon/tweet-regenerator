@@ -41,7 +41,7 @@ router.get('/streamTweets', (request, response) => {
   const stream = client.stream('statuses/filter', {track: 'javascript'})
   stream.on('data', event => {
     console.log(event && event.text)
-    response.send('value', event.text)
+    response.write('value'+event.text)
   })
 
   stream.on('error', error => {
