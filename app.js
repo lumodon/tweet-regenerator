@@ -6,6 +6,7 @@ const oauth = require('oauth')
 const consumer = require('./consumer')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const socket = require('./socket')
 
 const app = express()
 
@@ -44,7 +45,10 @@ app.get('/twitter', function(request, response){
       } else {
         let parsedData = JSON.parse(data)
 
-        response.send('You are signed in: ' + parsedData.screen_name)
+        response.setHeader({'Content-Type': 'video/mp4'})
+        const fs = require('fs')
+        const rs = fs.createReadStream('LoremIpsum.mp4')
+        rs.pipe(response)
       } 
     }
   )
