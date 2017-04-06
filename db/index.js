@@ -2,7 +2,7 @@ const mysql = require('mysql')
 const getPassword = require('../helpers/getPassword')
 const router = require('express').Router()
 
-router.get('/db', (request, response) => {
+router.get('/', (request, response) => {
   getPassword( password => {
     let connection = mysql.createConnection({
       host     : 'localhost',
@@ -19,6 +19,10 @@ router.get('/db', (request, response) => {
     })
     connection.end()
   })
+})
+
+router.post('/storeTweets', (request, response) => {
+  response.send('modifying')
 })
 
 module.exports = router

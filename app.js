@@ -6,6 +6,7 @@ const oauth = require('oauth')
 const consumer = require('./consumer')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+app.use(bodyParser.text())
 
 app.use('/session', require('./session'))
 app.use('/twitter', require('./twitter'))

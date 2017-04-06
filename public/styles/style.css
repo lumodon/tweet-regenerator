@@ -3,3 +3,60 @@ html, body {
   font-size: 1.4em;
   font-family: sans-serif;
 }
+
+#tweets, .timeContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.timeContainer {
+  align-items: center;
+}
+
+#tweets {
+  font-size: 0.8rem;
+  width: 93vw;
+  margin: auto;
+}
+
+.tweet, .single-tweet {
+  display: flex;
+  flex-direction: row;
+}
+
+.tweet {
+  flex-grow: 9;
+  width: 60vw;
+}
+
+.checkbox {
+  width: 15px;
+  margin: 0 0 0 20px;
+}
+
+.single-tweet {
+  height: 75px;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #aaacac;
+  margin: 1px 10px;
+}
+
+.single-tweet * {
+  margin: 5px 0 5px 5px;
+}
+
+.inputHeader, .timeInput {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100px;
+  width: 12vw;
+}
+
+.timeInput {
+  width: 45px;
+  font-size: 0.7rem;
+}
