@@ -12,7 +12,6 @@ const app = express()
 app.use(express.static(path.join(__dirname, '/public')))
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, '/views'))
-// app.set('db', './db')
 
 app.use(cookieParser())
 app.use(session({ 
@@ -34,7 +33,7 @@ app.get('/', (request, response) => {
   response.render('index', {'username': process.env.USER})
 })
 
-app.get('/twitter', function(request, response){
+app.get('/twitter', (request, response) => {
   // consumer.get("https://api.twitter.com/1.1/account/verify_credentials.json", 
   //   request.session.oauthAccessToken, 
   //   request.session.oauthAccessTokenSecret, 
@@ -43,21 +42,34 @@ app.get('/twitter', function(request, response){
   //       console.log('error =====>', error)
   //       response.status(500).send("Error getting twitter screen name : " + error.data)
   //     } else {
-        // let parsedData = JSON.parse(data)
-
-        response.setHeader('Content-Type', 'video/mp4')
-        const fs = require('fs')
-        const stream = fs.createReadStream('LoremIpsum.mp4')
-        stream.on('data', data => {
-          response.write(data)
-        })
-
-        stream.on('end', () => {
-          response.end()
-        })
-      // }
-    // }
+  //      let parsedData = JSON.parse(data)
+        
+        response.render('twitter')
+  //     }
+  //   }
   // )
+})
+
+app.get('/stream', (request, response) => {
+  response.setHeader('Content-Type', 'video/mp4')
+  const fs = require('fs')
+  try {
+    const stream = fs.createReadStream('LoremIpsum.mp4')
+    stream.on('data', data => {
+      console.log('DATA\'ing:')
+      response.write(data)
+    })
+
+    stream.on('end', () => {
+      console.log('ENDING:', err)
+      response.end()
+    })
+  } catch(err) {
+    console.log('ERROR reading file:', err)
+    stream.close()
+    response.send(err)
+  }
+  console.log('End of Get route:')
 })
 
 app.get('/favicon.ico', (request, response) => {
