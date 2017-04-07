@@ -35,10 +35,13 @@ function getTweets() {
         'className': 'timeContainer',
         'id': 'checkbox'+String(tweet.id),
         'type': 'checkbox',
-        'onchange': () => {
-          updateRetweets('checkbox'+String(tweet.id)) // FIXME do I bind this at the right moment?
-        }
       })
+      retweetCheckbox.onchange = () => {
+        updateRetweets({
+          'id': retweetCheckbox.id, 
+          'value': retweetCheckbox.checked === 'on' ? true : false
+        })
+      }
 
       let timeContainer = createElement('div', leftSection, {
         'className': 'timeContainer',
@@ -97,14 +100,12 @@ function createElement(type, parent, props) {
   return element
 }
 
-function updateRetweets(tweetId) {
+function updateRetweets(tweetData) {
   fetch('//127.0.0.1:3000/twitter/updateRetweets', {  
     method: 'POST',
-    body: tweetId
+    body: tweetData
   })
-  .then(response => {
-    return response.text()
-  })
+  .then(response => response.json())
   .then(response => {
     console.log('retweet response', response)
   })

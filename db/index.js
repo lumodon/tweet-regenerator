@@ -22,7 +22,12 @@ router.get('/', (request, response) => {
 })
 
 router.post('/storeTweets', (request, response) => {
-  response.send('modifying')
+  response.send('storingAll')
+})
+
+router.post('/updateTweet', (request, response) => {
+  console.log('database body', request.body)
+  response.send('updated')
 })
 
 module.exports = router

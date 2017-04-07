@@ -12,12 +12,28 @@ let oauthAccessToken
 let oauthAccessTokenSecret
 let screenName
 
+if(/dev/.test(process.env.NODE_ENV)) {
+  oauthAccessToken = '752252909803278336-KYSQqfApP3dQkMgF8zFmOPsgPHRWgQ0'
+  oauthAccessTokenSecret = 'e9Oq3nbojNKsUbAhUo6LdpW9Rb1nnR9lVKODrDhk5iHUk'
+}
+
 router.get('/page', (request, response) => {
-  require('../helpers/getOAuth')(request)
+  (() => {
+    if(/dev/.test(process.env.NODE_ENV)) {
+      return new Promise((resolve, reject) => {
+        request.session.oauthAccessToken = oauthAccessToken
+        request.session.oauthAccessTokenSecret = oauthAccessTokenSecret
+        resolve()
+      })
+    } else {
+      return require('../helpers/getOAuth')(request)
+    }
+  })()
   .then(() => {
+    console.log('token', request.session.oauthAccessToken,'secret', request.session.oauthAccessTokenSecret)
     consumer.get("https://api.twitter.com/1.1/account/verify_credentials.json", 
-      request.session.oauthAccessToken, 
-      request.session.oauthAccessTokenSecret, 
+      oauthAccessToken, 
+      oauthAccessTokenSecret, 
       (error, data, consumerResponse) => {
         if (error) {
           console.log('error =====>', error, '<==== end error')
@@ -44,13 +60,13 @@ router.get('/streamTweets', (request, response) => {
     access_token_key: oauthAccessToken,
     access_token_secret: oauthAccessTokenSecret
   })
+  console.log(oauthAccessToken, oauthAccessTokenSecret)
   client.get('statuses/user_timeline', {'q': screenName, 'count': 15}, function(error, tweets, twitterResponse) {
     if (!error) {
       let listOfTweetsObjs = []
       for(let tweet in tweets) {
         orderedInsert(listOfTweetsObjs, tweets[tweet])
       }
-      console.log('listOfTweets', listOfTweetsObjs)
       response.send(listOfTweetsObjs)
     } else {
       console.log(error)
@@ -60,7 +76,23 @@ router.get('/streamTweets', (request, response) => {
 
 router.post('/updateRetweets', (request, response) => {
   console.log('updateRetweet body:', request.body)
-  response.redirect
+  httpRequest({
+    'url': 'http://127.0.0.1:3000/db/updateTweet',
+    'method': 'POST',
+    'body': request.body
+  }, (error, sbResponse, body) => {
+    if(error) {
+      console.log('ajax error', error)
+      response.json({'error': error, 'sbResponse': sbResponse, 'body': body, 'test': 'Found me'})
+    } else {
+      response.json({
+        'headers': sbResponse.headers,
+        'body': body,
+        'statusCode': sbResponse.statusCode,
+        'httpVersion': sbResponse.httpVersion
+      })
+    }
+  })
   response.send('success')
 })
 
