@@ -66,12 +66,12 @@ Developers/Learners will get practice working with Twitter's REST APIs on the ba
 
 ## Specifications
 
-- [ ] App uses the Twitter API.
+- [X] App uses the Twitter API.
 - [ ] Users can view up to fifty of their most recent tweets from Twitter.
 - [ ] When user sends out a tweet, it is automatically saved to the database for future access.
 - [ ] Users can view their saved tweets (the ones in the database, not the ones from Twitter).
 - [ ] Users automatically re-tweet saved tweets at a specified interval (on the hour, for example).
-- [ ] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
+- [X] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
 
 ### Stretch
 
