@@ -75,30 +75,33 @@ router.get('/streamTweets', (request, response) => {
 })
 
 router.post('/updateRetweets', (request, response) => {
-  console.log('updateRetweet body:', request.body)
+  let myValue = JSON.stringify(request.body)
+  console.log('updateRetweet body:', myValue, typeof myValue)
   httpRequest({
-    'url': 'http://127.0.0.1:3000/db/updateTweet',
-    'method': 'POST',
-    'body': request.body
-  }, (error, sbResponse, body) => {
+    url: 'http://127.0.0.1:3000/db/updateTweet',
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain'},
+    body: myValue
+  }, 
+  (error, sbResponse, body) => {
     if(error) {
       console.log('ajax error', error)
       response.json({'error': error, 'sbResponse': sbResponse, 'body': body, 'test': 'Found me'})
     } else {
+      console.log(request.body)
       response.json({
         'headers': sbResponse.headers,
-        'body': body,
+        'body': request.body,
         'statusCode': sbResponse.statusCode,
         'httpVersion': sbResponse.httpVersion
       })
     }
   })
-  response.send('success')
 })
 
 function orderedInsert(arrayInsertInto, item) {
-  let date = moment(item['created_at'], 'ddd MMM DD HH:mm:ss ZZ YYYY').format('MM/DD/YYYY HH:mm')
-  let daysSince = Math.trunc((moment().diff(moment(date), 'days', true))*1000)/1000
+  let date = String(moment(String(item['created_at']), 'ddd MMM DD HH:mm:ss ZZ YYYY').format('MM/DD/YYYY HH:mm'))
+  let daysSince = Math.trunc((moment().diff(moment(String(date), 'MM/DD/YYYY HH:mm'), 'days', true))*1000)/1000
   
   let index = arrayInsertInto.findIndex( (element, i, arr) => {
     let next = (arr[i+1] !== undefined ? arr[i+1]['daysSince'] : null)

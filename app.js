@@ -21,10 +21,12 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
 app.use(bodyParser.text())
 
 app.use('/session', require('./session'))
 app.use('/twitter', require('./twitter'))
+app.use('/db', require('./db'))
 
 app.use((request, response, next) => {
   response.locals.user = request.session.user

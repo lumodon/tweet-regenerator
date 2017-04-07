@@ -26,7 +26,7 @@ router.post('/storeTweets', (request, response) => {
 })
 
 router.post('/updateTweet', (request, response) => {
-  console.log('database body', request.body)
+  console.log('database body', JSON.parse(request.body))
   response.send('updated')
 })
 

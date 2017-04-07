@@ -39,7 +39,7 @@ function getTweets() {
       retweetCheckbox.onchange = () => {
         updateRetweets({
           'id': retweetCheckbox.id, 
-          'value': retweetCheckbox.checked === 'on' ? true : false
+          'value': retweetCheckbox.checked
         })
       }
 
@@ -103,7 +103,7 @@ function createElement(type, parent, props) {
 function updateRetweets(tweetData) {
   fetch('//127.0.0.1:3000/twitter/updateRetweets', {  
     method: 'POST',
-    body: tweetData
+    body: JSON.stringify(tweetData)
   })
   .then(response => response.json())
   .then(response => {
