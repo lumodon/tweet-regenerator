@@ -14,6 +14,20 @@ html, body {
   align-items: center;
 }
 
+.leftSection, .rightSection {
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
+
+.leftSection {
+  flex-grow: 1;
+}
+
+.rightSection {
+  flex-grow: 7;
+}
+
 #tweets {
   font-size: 0.8rem;
   width: 93vw;
@@ -36,12 +50,29 @@ html, body {
 }
 
 .single-tweet {
-  height: 75px;
+  height: 120px;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
   justify-content: space-around;
-  background-color: #aaacac;
   margin: 1px 10px;
+}
+
+.upperTweet, .lowerTweet {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.checker-on {
+  background-color: #b8ffd7;
+}
+
+.checker-off {
+  background-color: #f6eee0;
 }
 
 .single-tweet * {

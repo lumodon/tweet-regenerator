@@ -10,50 +10,91 @@ function getTweets() {
   .then(response => {
     let tweetsDiv = document.querySelector('#tweets')
     let listOfTweets = JSON.parse(response)
-    for(let tweetIndex of listOfTweets) {
-      let singleTweetDiv = document.createElement('div')
-      singleTweetDiv.className = 'single-tweet'
-      tweetsDiv.appendChild(singleTweetDiv)
+    let checkered = 'off'
+    for(let tweet of listOfTweets) {
+      let singleTweetDiv = createElement('div', tweetsDiv, {
+        'className': 'single-tweet checker-'+checkered,
+      })
+      checkered = checkered === 'off' ? 'on' : 'off'
 
-      let retweetCheckbox = document.createElement('input')
-      retweetCheckbox.className = 'checkbox'
-      retweetCheckbox.id = 'checkbox'+String(tweetIndex.id)
-      retweetCheckbox.type = 'checkbox'
-      retweetCheckbox.onchange = updateRetweets.bind(retweetCheckbox, retweetCheckbox.id)
-      singleTweetDiv.appendChild(retweetCheckbox)
+      let leftSection = createElement('div', singleTweetDiv, {
+        'className': 'leftSection',
+      })
 
-      let timeContainer = document.createElement('div')
-      timeContainer.className = 'timeContainer'
-      singleTweetDiv.appendChild(timeContainer)
+      let rightSection = createElement('div', singleTweetDiv, {
+        'className': 'rightSection',
+      })
 
-      let inputHeader = document.createElement('p')
-      inputHeader.className = 'inputHeader'
-      inputHeader.textContent = 'Hours to ReTweet:'
-      timeContainer.appendChild(inputHeader)
 
-      let timeInput = document.createElement('input')
-      timeInput.className = 'timeInput'
-      timeInput.id = 'timeInput'+String(tweetIndex.id)
-      timeInput.type = 'number'
-      timeInput.min = '1'
-      timeInput.max = '168'
-      timeInput.width = '100px'
-      timeContainer.appendChild(timeInput)
-      timeInput.onblur = () => {
-        if(timeInput.value < timeInput.min) {
-          timeInput.value = timeInput.min
-        } else if(timeInput.value > timeInput.max) {
-          timeInput.value = timeInput.max
+      // Upper section
+      let upperTweetSection = createElement('div', rightSection, {
+        'className': 'upperTweet',
+      })
+
+      let retweetCheckbox = createElement('input', upperTweetSection, {
+        'className': 'timeContainer',
+        'id': 'checkbox'+String(tweet.id),
+        'type': 'checkbox',
+        'onchange': () => {
+          updateRetweets(retweetCheckbox.id) // FIXME do I bind this at the right moment?
         }
-      }
+      })
 
-      let tweet = document.createElement('p')
-      tweet.textContent = tweetIndex.text
-      tweet.className = 'tweet'
-      singleTweetDiv.appendChild(tweet)
-      
+      let timeContainer = createElement('div', upperTweetSection, {
+        'className': 'timeContainer',
+      })
+
+      let inputHeader = createElement('p', timeContainer, {
+        'className': 'inputHeader',
+        'textContent': 'Hours to Retweet:'
+      })
+
+      let timeInput = createElement('input', timeContainer, {
+        'className': 'timeInput',
+        'id': 'timeInput'+String(tweet.id),
+        'type': 'number',
+        'min': '1',
+        'max': '168',
+        'width': '100px',
+        'onblur': () => {
+          if(timeInput.value < timeInput.min) {
+            timeInput.value = timeInput.min
+          } else if(timeInput.value > timeInput.max) {
+            timeInput.value = timeInput.max
+          }
+        }
+      })
+
+      let tweetItself = createElement('p', upperTweetSection, {
+        'textContent': tweet.text,
+        'className': 'tweet'
+      })
+
+      // Lower section
+      let lowerTweetSection = createElement('div', rightSection, {
+        'className': 'lowerTweet',
+      })
+
+      let dateCreated = createElement('p', lowerTweetSection, {
+        'className': 'dateCreated',
+        'textContent': 'Date: '+tweet.date
+      })
+
+      let daysSince = createElement('p', lowerTweetSection, {
+        'className': 'daysSince',
+        'textContent': 'Posted '+tweet.daysSince+' days ago'
+      })
     }
   })
+}
+
+function createElement(type, parent, props) {
+  let element = document.createElement(type)
+  for(let key in props) {
+    element[key] = props[key]
+  }
+  parent.appendChild(element)
+  return element
 }
 
 function updateRetweets(tweetId) {
