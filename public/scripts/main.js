@@ -10,8 +10,10 @@ function getTweets() {
   .then(response => {
     let tweetsDiv = document.querySelector('#tweets')
     let listOfTweets = JSON.parse(response)
+    let databaseTweets = []
     let checkered = 'off'
     for(let tweet of listOfTweets) {
+      databaseTweets.push({'id': tweet.id, 'msg': tweet.text})
       let singleTweetDiv = createElement('div', tweetsDiv, {
         'className': 'single-tweet checker-'+checkered,
       })
@@ -88,6 +90,14 @@ function getTweets() {
         'textContent': 'Posted '+tweet.daysSince+' days ago'
       })
     }
+    fetch('//127.0.0.1:3000/db/storeTweets', {
+      method: 'POST',
+      body: JSON.stringify(databaseTweets)
+    })
+    .then(response => response.text())
+    .then(response => {
+      console.log('database store tweets response', response)
+    })
   })
 }
 
