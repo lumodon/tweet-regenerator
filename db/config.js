@@ -1,4 +1,6 @@
+const path = require('path')
+
 module.exports = {
-  'KEY_FILE': './mysql.keyfile',
-  'CRYPT_PASSWORD_FILE': './crypt_password.cfg'
+  'KEY_FILE': path.join(__dirname, './mysql.keyfile'),
+  'CRYPT_PASSWORD_FILE': path.join(__dirname, './crypt_password.cfg')
 }

@@ -3,3 +3,92 @@ html, body {
   font-size: 1.4em;
   font-family: sans-serif;
 }
+
+#tweets, .timeContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.timeContainer {
+  align-items: center;
+}
+
+.leftSection, .rightSection {
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
+
+.leftSection {
+  flex-grow: 1;
+}
+
+.rightSection {
+  flex-grow: 7;
+  flex-direction: column;
+}
+
+#tweets {
+  font-size: 0.8rem;
+  width: 93vw;
+  margin: auto;
+}
+
+.tweet, .single-tweet {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-tweet {
+  height: 120px;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1px 10px;
+}
+
+.tweet {
+  flex-grow: 9;
+  width: 60vw;
+}
+
+.checkbox {
+  width: 15px;
+  margin: 0 0 0 20px;
+}
+
+
+.upperTweet, .lowerTweet {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.checker-on {
+  background-color: #cdbfec;
+}
+
+.checker-off {
+  background-color: #d4f1ff;
+}
+
+.single-tweet * {
+  margin: 5px;
+}
+
+.inputHeader, .timeInput {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100px;
+  width: 12vw;
+}
+
+.timeInput {
+  width: 45px;
+  font-size: 0.7rem;
+}
