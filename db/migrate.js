@@ -4,8 +4,8 @@ const getPassword = require('../helpers/getPassword')
 getPassword( password => {
   let connection = mysql.createConnection({
     host              : 'localhost',
-    user              : 'serafin',
-    getPassword       : password
+    user              : 'root',
+    // getPassword       : password,
     database          : 'tweet_db',
     multipleStatements: true
   })
@@ -18,6 +18,7 @@ getPassword( password => {
     let query = `DROP TABLE IF EXISTS tweets;
       CREATE TABLE tweets (
       id int(11) NOT NULL AUTO_INCREMENT,
+      tweetid BINARY(64),
       tweet VARCHAR(144),
       owner VARCHAR(20),
       PRIMARY KEY (id)

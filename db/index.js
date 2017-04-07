@@ -7,8 +7,8 @@ getPassword( password => {
   console.log('decrypted password is: ', password)
   connection = mysql.createConnection({
     host               : 'localhost',
-    user               : 'serafin',
-    password           : password,
+    user               : 'root',
+    // password           : password,
     database           : 'tweet_db',
     multipleStatements : true
   })
@@ -31,7 +31,7 @@ router.post('/storeTweets', (request, response) => {
   for(let key in body) {
     let id = body[key]['id']
     let msg = body[key]['msg']
-    qs += `INSERT INTO tweets (id, tweet) VALUES (${id} ${msg});\r\n`
+    qs += `INSERT INTO tweets (tweetid, tweet) VALUES (${id}, "${msg}");\r\n`
   }
   console.log('Query string is: ', qs)
 
