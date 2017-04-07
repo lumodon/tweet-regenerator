@@ -13,23 +13,26 @@ let oauthAccessTokenSecret
 let screenName
 
 router.get('/page', (request, response) => {
-  consumer.get("https://api.twitter.com/1.1/account/verify_credentials.json", 
-    request.session.oauthAccessToken, 
-    request.session.oauthAccessTokenSecret, 
-    (error, data, consumerResponse) => {
-      if (error) {
-        console.log('error =====>', error, '<==== end error')
-        response.status(500).send("Error getting twitter screen name : " + error.data)
-      } else {
-        oauthAccessToken = request.session.oauthAccessToken
-        oauthAccessTokenSecret = request.session.oauthAccessTokenSecret
-        let parsedData = JSON.parse(data)
-        screenName = parsedData.screen_name
-        
-        response.render('twitter')
+  require('../helpers/getOAuth')(request)
+  .then(() => {
+    consumer.get("https://api.twitter.com/1.1/account/verify_credentials.json", 
+      request.session.oauthAccessToken, 
+      request.session.oauthAccessTokenSecret, 
+      (error, data, consumerResponse) => {
+        if (error) {
+          console.log('error =====>', error, '<==== end error')
+          response.status(500).send("Error getting twitter screen name : " + error.data)
+        } else {
+          oauthAccessToken = request.session.oauthAccessToken
+          oauthAccessTokenSecret = request.session.oauthAccessTokenSecret
+          let parsedData = JSON.parse(data)
+          screenName = parsedData.screen_name
+          
+          response.render('twitter')
+        }
       }
-    }
-  )
+    )
+  })
 })
 
 router.get('/streamTweets', (request, response) => {
@@ -57,6 +60,7 @@ router.get('/streamTweets', (request, response) => {
 
 router.post('/updateRetweets', (request, response) => {
   console.log('updateRetweet body:', request.body)
+  response.redirect
   response.send('success')
 })
 

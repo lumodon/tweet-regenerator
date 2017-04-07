@@ -31,16 +31,16 @@ function getTweets() {
         'className': 'upperTweet',
       })
 
-      let retweetCheckbox = createElement('input', upperTweetSection, {
+      let retweetCheckbox = createElement('input', leftSection, {
         'className': 'timeContainer',
         'id': 'checkbox'+String(tweet.id),
         'type': 'checkbox',
         'onchange': () => {
-          updateRetweets(retweetCheckbox.id) // FIXME do I bind this at the right moment?
+          updateRetweets('checkbox'+String(tweet.id)) // FIXME do I bind this at the right moment?
         }
       })
 
-      let timeContainer = createElement('div', upperTweetSection, {
+      let timeContainer = createElement('div', leftSection, {
         'className': 'timeContainer',
       })
 

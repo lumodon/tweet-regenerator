@@ -25,20 +25,7 @@ router.get('/connect', (request, response) => {
 })
 
 router.get('/callback', (request, response) => {
-  new Promise((resolve, reject) => {
-    fs.readFile('./temp-oauth-fix.js', 'utf-8', (err, data) => {
-      if(err) {
-        console.log('error reading from file')
-        reject()
-      } else {
-        const parsedData = JSON.parse(data)
-        request.session.oauthRequestTokenSecret = parsedData.oauthRequestTokenSecret
-        request.session.oauthRequestToken = parsedData.oauthRequestToken
-        console.log(request.session.oauthRequestToken, request.session.oauthRequestTokenSecret)
-        resolve()
-      }
-    })
-  })
+  require('../helpers/getOAuth')(request)
   .then(() => {
     console.log('\nAccess*\ntoken:', request.session.oauthRequestToken, ', secret:', request.session.oauthRequestTokenSecret, ', verifier:', request.query.oauth_verifier)
     consumer.getOAuthAccessToken(

@@ -26,6 +26,7 @@ html, body {
 
 .rightSection {
   flex-grow: 7;
+  flex-direction: column;
 }
 
 #tweets {
@@ -39,6 +40,14 @@ html, body {
   flex-direction: row;
 }
 
+.single-tweet {
+  height: 120px;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1px 10px;
+}
+
 .tweet {
   flex-grow: 9;
   width: 60vw;
@@ -49,14 +58,6 @@ html, body {
   margin: 0 0 0 20px;
 }
 
-.single-tweet {
-  height: 120px;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-around;
-  margin: 1px 10px;
-}
 
 .upperTweet, .lowerTweet {
   display: flex;
@@ -68,15 +69,15 @@ html, body {
 }
 
 .checker-on {
-  background-color: #b8ffd7;
+  background-color: #cdbfec;
 }
 
 .checker-off {
-  background-color: #f6eee0;
+  background-color: #d4f1ff;
 }
 
 .single-tweet * {
-  margin: 5px 0 5px 5px;
+  margin: 5px;
 }
 
 .inputHeader, .timeInput {
